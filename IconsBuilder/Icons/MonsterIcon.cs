@@ -74,7 +74,8 @@ public class MonsterIcon : BaseIcon
 
             if (settings.HighlightEldritchMonsters &&
                 (entity.Path.StartsWith("Metadata/Monsters/AtlasInvaders/BlackStarMonsters/", StringComparison.Ordinal) ||
-                 entity.Path.StartsWith("Metadata/Monsters/AtlasInvaders/CleansingMonsters/", StringComparison.Ordinal)))
+                 entity.Path.StartsWith("Metadata/Monsters/AtlasInvaders/CleansingMonsters/", StringComparison.Ordinal)||
+                 entity.Path.StartsWith("Metadata/Monsters/AtlasInvaders/DoomMonsters/", StringComparison.Ordinal)))
             {
                 BorderColor = settings.EldritchMonstersColor.Value.ToSystem();
             }
@@ -86,7 +87,8 @@ public class MonsterIcon : BaseIcon
                 Priority = IconPriority.VeryHigh;
             }
             else
-            {
+            { 
+                var oldShow = Show;
                 switch (Rarity)
                 {
                     case MonsterRarity.White:
@@ -94,12 +96,14 @@ public class MonsterIcon : BaseIcon
                             MainTexture.UV = SpriteHelper.GetUV(MapIconsIndex.LootFilterLargeRedCircle);
                         if (settings.MonsterRarityNames.ShowNormalNames)
                             Text = RenderName.Split(',').FirstOrDefault();
+                        Show = () => oldShow() && settings.ShowNormalMonsters;
                         break;
                     case MonsterRarity.Magic:
                         if (!isMonsterWithIcon)
                             MainTexture.UV = SpriteHelper.GetUV(MapIconsIndex.LootFilterLargeBlueCircle);
                         if (settings.MonsterRarityNames.ShowMagicNames)
                             Text = RenderName.Split(',').FirstOrDefault();
+                        Show = () => oldShow() && settings.ShowMagicMonsters;
                         break;
                     case MonsterRarity.Rare:
                         if (!isMonsterWithIcon)

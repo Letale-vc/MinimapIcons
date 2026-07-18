@@ -1,4 +1,4 @@
-﻿using ExileCore;
+using ExileCore;
 using ExileCore.Shared.Attributes;
 using ExileCore.Shared.Enums;
 using ExileCore.Shared.Helpers;
@@ -77,6 +77,9 @@ public class IconsBuilderSettings
     [Menu("Shrine icon size")]
     public RangeNode<int> SizeShrineIcon { get; set; } = new RangeNode<int>(10, 1, 50);
 
+    public ToggleNode ShowNormalMonsters { get; set; } = new ToggleNode(true);
+    public ToggleNode ShowMagicMonsters { get; set; } = new ToggleNode(true);
+
     [JsonIgnore]
     public ButtonNode ResetIcons { get; set; } = new();
 
@@ -124,6 +127,7 @@ public class CustomIconSettings
     public ToggleNode OnlyShowAlive { get; set; } = new(false);
     public ToggleNode OnlyShowNotOpened { get; set; } = new(false);
     public ToggleNode OnlyShowNonHiddenIcons { get; set; } = new(false);
+    public ToggleNode DisableDrawingHiddenIcon { get; set; } = new(false);
     [JsonConverter(typeof(StringEnumConverter))]
     public MapIconsIndex Icon;
 
